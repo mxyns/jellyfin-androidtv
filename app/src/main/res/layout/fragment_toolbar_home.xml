@@ -24,6 +24,16 @@
             android:layout_width="8dp"
             android:layout_height="0dp" />
 
+
+        <ImageButton
+            android:id="@+id/wakeonlan"
+            style="@style/Button.Icon"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:contentDescription="@string/lbl_WoL"
+            android:src="@drawable/ic_jellyfin"
+            />
+
         <ImageButton
             android:id="@+id/settings"
             style="@style/Button.Icon"

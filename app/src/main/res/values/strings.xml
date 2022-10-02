@@ -13,6 +13,7 @@
     <string name="chapters">Chapters</string>
     <string name="state_disabled">Disabled</string>
     <string name="lbl_settings">Preferences</string>
+    <string name="lbl_WoL">Wake On LAN</string>
     <string name="lbl_continue_watching">Continue Watching</string>
     <string name="lbl_next_up">Next Up</string>
     <string name="lbl_on_now">On Now</string>

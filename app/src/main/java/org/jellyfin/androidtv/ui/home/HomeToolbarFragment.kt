@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
 import kotlinx.coroutines.launch
 import org.jellyfin.androidtv.R
+import org.jellyfin.androidtv.auth.repository.ServerRepository
 import org.jellyfin.androidtv.auth.repository.SessionRepository
 import org.jellyfin.androidtv.auth.repository.UserRepository
 import org.jellyfin.androidtv.databinding.FragmentToolbarHomeBinding
@@ -28,6 +29,7 @@ import org.koin.android.ext.android.inject
 
 class HomeToolbarFragment : Fragment() {
 	private lateinit var binding: FragmentToolbarHomeBinding
+	private val serverRepository by inject<ServerRepository>()
 	private val sessionRepository by inject<SessionRepository>()
 	private val userRepository by inject<UserRepository>()
 
@@ -46,6 +48,22 @@ class HomeToolbarFragment : Fragment() {
 		binding.search.setOnClickListener {
 			val settingsIntent = Intent(activity, SearchActivity::class.java)
 			activity?.startActivity(settingsIntent)
+		}
+
+		binding.wakeonlan.setOnClickListener {
+
+			var click = true;
+			viewLifecycleOwner.lifecycleScope.launch {
+
+				serverRepository.loadStoredServers()
+				serverRepository.storedServers.collect {
+					if (click)
+						activity?.runOnUiThread {
+							HomeToolbarDialog(context).execute(it[0])
+						}
+				}
+			}
+			click = false;
 		}
 
 		return binding.root
